@@ -10,6 +10,7 @@ public class NetScreen extends JPanel {
     JButton rightPageButton = new JButton(new ImageIcon(NetScreen.class.getResource("/images/rightPageButton.png")));
     JButton leftPageDisButton = new JButton(new ImageIcon(NetScreen.class.getResource("/images/leftPageDisButton.png")));
     JButton rightPageDisButton = new JButton(new ImageIcon(NetScreen.class.getResource("/images/rightPageDisButton.png")));
+    JButton faces[];
 
     public NetScreen() {
         this.setLayout(null);
@@ -30,7 +31,10 @@ public class NetScreen extends JPanel {
         leftPageButton.setContentAreaFilled(false);
         leftPageButton.setVisible(false);
         leftPageButton.addActionListener(e -> {
-            goLeftPage();
+            if (curPage > 0) {
+                curPage--;
+                updatePage();
+            }
         });
         this.add(leftPageButton);
 
@@ -40,7 +44,10 @@ public class NetScreen extends JPanel {
         rightPageButton.setContentAreaFilled(false);
         rightPageButton.setVisible(false);
         rightPageButton.addActionListener(e -> {
-            goRightPage();
+            if (curPage < GameScreen.dices.size() - 1) {
+                curPage++;
+                updatePage();
+            }
         });
         this.add(rightPageButton);
 
@@ -61,13 +68,25 @@ public class NetScreen extends JPanel {
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentShown(ComponentEvent e) {
-                goLeftPage();
-                goRightPage();
+                updatePage();
             }
         });
     }
 
-    void goLeftPage() {
+    void updatePage() {
+        if (faces != null) {
+            for (JButton b : faces) {
+                this.remove(b);
+            }
+        }
+
+        if (!GameScreen.dices.isEmpty()) {
+            faces = GameScreen.dices.get(curPage).getButtons();
+            for (JButton b : faces) {
+                add(b);
+            }
+        }
+
         if (curPage == 0) {
             leftPageDisButton.setVisible(true);
             leftPageButton.setVisible(false);
@@ -75,15 +94,16 @@ public class NetScreen extends JPanel {
             leftPageDisButton.setVisible(false);
             leftPageButton.setVisible(true);
         }
-    }
 
-    void goRightPage() {
-        if (curPage == GameScreen.dices.size() - 1) {
+        if (curPage >= GameScreen.dices.size() - 1) {
             rightPageDisButton.setVisible(true);
             rightPageButton.setVisible(false);
         } else {
             rightPageDisButton.setVisible(false);
             rightPageButton.setVisible(true);
         }
+
+        this.revalidate();
+        this.repaint();
     }
 }
