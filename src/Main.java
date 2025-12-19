@@ -21,6 +21,7 @@ public class Main extends JFrame {
         frame.add(screens);
 
         screens.add(new GameScreen(), "game");
+        screens.add(new ShopScreen(), "shop");
 
         cl.show(screens, "game");
 
