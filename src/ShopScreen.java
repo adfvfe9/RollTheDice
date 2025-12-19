@@ -5,6 +5,7 @@ import java.awt.event.*;
 public class ShopScreen extends JPanel {
     JButton homeButton = new JButton(new ImageIcon(ShopScreen.class.getResource("/images/homeButton.png")));
     JButton netButton = new JButton(new ImageIcon(ShopScreen.class.getResource("/images/netButton.png")));
+    JButton buyNewDiceButton = new JButton(new ImageIcon(ShopScreen.class.getResource("/images/buyNewDiceButton.png")));
 
     public ShopScreen() {
         this.setLayout(null);
@@ -27,5 +28,14 @@ public class ShopScreen extends JPanel {
             Main.changeScreen("net");
         });
         this.add(netButton);
+
+        buyNewDiceButton.setBounds(609, 441, 686, 241);
+        buyNewDiceButton.setBorderPainted(false);
+        buyNewDiceButton.setFocusPainted(false);;
+        buyNewDiceButton.setContentAreaFilled(false);
+        buyNewDiceButton.addActionListener(e -> {
+
+        });
+        this.add(buyNewDiceButton);
     }
 }
