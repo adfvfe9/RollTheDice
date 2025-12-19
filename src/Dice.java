@@ -4,6 +4,8 @@ import java.awt.event.MouseEvent;
 
 public class Dice extends JLabel {
     Face faces[] = new Face[6];
+    DiceRollListener rollListener;
+
     public Dice(Face faces[]) {
         if (faces.length != 6) {
             JOptionPane.showMessageDialog(null, "주사위 생성자 상태 꼬라지;", "ErrorCode1", JOptionPane.ERROR);
@@ -20,11 +22,16 @@ public class Dice extends JLabel {
             public void mouseClicked(MouseEvent e) {
                 Face curF = roll();
                 setIcon(new ImageIcon(Dice.class.getResource("/images/Dice" + curF.getName() + ".png")));
-                Main.currentPlayer.changeEyesVal(curF.getEyes());
-                GameScreen.score.setText(String.valueOf(Main.currentPlayer.eyes));
+                if (rollListener != null) {
+                    rollListener.diceRolled(curF.getEyes());
+                }
                 repaint();
             }
         });
+    }
+
+    void setRollListener(DiceRollListener listener) {
+        this.rollListener = listener;
     }
 
     Face roll() {

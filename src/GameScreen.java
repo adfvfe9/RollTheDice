@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 import java.util.*;
 
 public class GameScreen extends JPanel {
-    static JLabel score = new JLabel(String.valueOf(Main.currentPlayer.eyes));
+    JLabel score = new JLabel(String.valueOf(Main.currentPlayer.eyes));
     static ArrayList<Dice> dices = new ArrayList<>();
     JButton shopButton = new JButton(new ImageIcon(GameScreen.class.getResource("/images/shopButton.png")));
     public GameScreen() {
@@ -20,6 +20,15 @@ public class GameScreen extends JPanel {
         Dice d = new Dice(new Face[]{
             new Face(1), new Face(2), new Face(3), new Face(4), new Face(5), new Face(6)
         });
+
+        d.setRollListener(new DiceRollListener() {
+            @Override
+            public void diceRolled(long eyes) {
+                Main.currentPlayer.changeEyesVal(eyes);
+                score.setText(String.valueOf(Main.currentPlayer.eyes));
+            }
+        });
+
         this.add(d);
         dices.add(d);
 
