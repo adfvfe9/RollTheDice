@@ -13,7 +13,7 @@ public class GameScreen extends JPanel {
         this.setFocusable(true);
 
         score.setBounds(60, 70, 1000, 100);
-        score.setFont(new Font("Gothic", Font.BOLD, 40));
+        score.setFont(new Font("Aleo", Font.BOLD, 40));
         score.setText("0");
         this.add(score);
 

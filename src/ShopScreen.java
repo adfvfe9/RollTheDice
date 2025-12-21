@@ -5,7 +5,8 @@ import java.awt.event.*;
 public class ShopScreen extends JPanel {
     JButton homeButton = new JButton(new ImageIcon(ShopScreen.class.getResource("/images/homeButton.png")));
     JButton netButton = new JButton(new ImageIcon(ShopScreen.class.getResource("/images/netButton.png")));
-    JButton buyNewDiceButton = new JButton(new ImageIcon(ShopScreen.class.getResource("/images/buyNewDiceButton.png")));
+    JButton buyNewDiceButtonLabel = new JButton(new ImageIcon(ShopScreen.class.getResource("/images/buyNewDiceButtonLabel.png")));
+    JLabel buyNewDicePrice = new JLabel("0");
 
     public ShopScreen() {
         this.setLayout(null);
@@ -29,13 +30,25 @@ public class ShopScreen extends JPanel {
         });
         this.add(netButton);
 
-        buyNewDiceButton.setBounds(609, 441, 686, 241);
-        buyNewDiceButton.setBorderPainted(false);
-        buyNewDiceButton.setFocusPainted(false);;
-        buyNewDiceButton.setContentAreaFilled(false);
-        buyNewDiceButton.addActionListener(e -> {
-
+        buyNewDiceButtonLabel.setBounds(762, 343, 400, 500);
+        buyNewDiceButtonLabel.setBorderPainted(false);
+        buyNewDiceButtonLabel.setFocusPainted(false);;
+        buyNewDiceButtonLabel.setContentAreaFilled(false);
+        buyNewDiceButtonLabel.addActionListener(e -> {
+            //TODO 이거내용채우기...
         });
-        this.add(buyNewDiceButton);
+        this.add(buyNewDiceButtonLabel);
+
+        buyNewDicePrice.setBounds(825, 745, 300, 75);
+        buyNewDicePrice.setFont(new Font("Aleo", Font.BOLD, 50));
+        buyNewDicePrice.setHorizontalAlignment(SwingConstants.RIGHT);
+        this.add(buyNewDicePrice);
+
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                buyNewDicePrice.setText(String.valueOf((int)Math.pow(500, GameScreen.dices.size())));
+            }
+        });
     }
 }
